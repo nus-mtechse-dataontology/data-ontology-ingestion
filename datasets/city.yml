@@ -1,0 +1,53 @@
+name: "city ingestion"
+description: "Ingestion pipeline for data processing and transformation."
+version: "1.0.0"
+
+dataset:
+  name: "city"
+  description: "Dataset containing city information."
+  source:
+    type: "api_endpoint"
+    url: "https://apigw.singaporeair.com/api/uat/v1/destinations/get"
+    method: "POST"
+    headers:
+      x-csl-client-uuid: "client_uuid"
+      x-signature: "client_signature"
+      api_key: "api_key"
+      options:
+        context:
+          apiKey: "destination.apiKey"
+          secret: "destination.secret"
+
+datasource:
+  driver:
+    package: "drivers.sqlite_driver"
+    class: "SQLiteDriver"
+    options:
+  database:
+    name: "database.db"
+    connection_url: "sqlite:///storage/database.db"
+    options:
+      echo: false
+  table:
+    name: "dim_city"
+    columns: []
+    mode: "truncate"
+    batch_size: 1000
+    options:
+
+modules:
+  entry:
+    package: "entry.api_entry"
+    class: "ApiEntry"
+  dao:
+    package: "repositories.city_dao"
+    class: "CityDAO"
+  ingestion:
+    package: "ingestion.api_ingestion.city_api_ingestion"
+    class: "CityApiIngestion"
+  api_gateway:
+    package: "gateway.api_gateway"
+    class: "ApiGateway"
+  service:
+    package: "services.city_service"
+    class: "CityService"
