@@ -7,7 +7,7 @@ dataset:
   description: "Dataset containing Flight information."
   source:
     type: "file"
-    url: "file:///datafiles/fact_flight_info.csv"
+    url: "file:///Users/wenjiefang/Documents/SChool/data-ontology-ingestion/tmp/fact_flight_info.csv"
     encoding: "utf-8"
     delimiter: ","
     quotechar: '"'

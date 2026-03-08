@@ -10,6 +10,7 @@ dependencies = [
     "certifi==2026.1.4",
     "charset-normalizer==3.4.4",
     "click==8.3.1",
+    "fastapi>=0.135.1",
     "greenlet==3.3.1",
     "idna==3.11",
     "markdown-it-py==4.0.0",
@@ -31,9 +32,11 @@ dependencies = [
     "typing-extensions==4.15.0",
     "typing-inspection==0.4.2",
     "urllib3==2.6.3",
+    "uvicorn>=0.41.0",
 ]
 
 [tool.pytest.ini_options]
 pythonpath = [
-    "src"
+    "src",
+    "src/data_feed"
 ]

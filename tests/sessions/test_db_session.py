@@ -1,11 +1,11 @@
-from sessions.db_session import DBSession
+from data_feed.sessions.db_session import DBSession
 
 
 def test_db_session_creates_engine(tmp_path):
     # use a memory database for simplicity
     config = {
         "datasource": {
-            "driver": {"package": "drivers.sqlite_driver", "class": "SQLiteDriver", "options": {}},
+            "driver": {"package": "data_feed.drivers.sqlite_driver", "class": "SQLiteDriver", "options": {}},
             "database": {"name": "db", "connection_url": "sqlite:///:memory:", "options": {"echo": False}},
         }
     }

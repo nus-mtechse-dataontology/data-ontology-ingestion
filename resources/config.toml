@@ -8,10 +8,86 @@ level = "INFO"
 formatter = "ingestion_default"
 stream = "ext://sys.stdout"
 
+[logger.handlers.default]
+class = "logging.StreamHandler"
+level = "INFO"
+formatter = "default"
+stream = "ext://sys.stderr"
+
+[logger.handlers.access]
+class = "logging.StreamHandler"
+level = "INFO"
+formatter = "access"
+stream = "ext://sys.stdout"
+
+[logger.handlers.error]
+class = "logging.StreamHandler"
+level = "ERROR"
+formatter = "access"
+stream = "ext://sys.stdout"
+
+[logger.formatters.default]
+"()" = "uvicorn.logging.DefaultFormatter"
+fmt = "%(asctime)s - %(levelprefix)s %(message)s"
+use_colors = true
+datefmt = "%Y-%m-%d %H:%M:%S"
+
+[logger.formatters.access]
+"()" = "uvicorn.logging.AccessFormatter"
+fmt = "%(asctime)s - %(levelprefix)s - %(client_addr)s - \"%(request_line)s\" %(status_code)s"
+use_colors = true
+datefmt = "%Y-%m-%d %H:%M:%S"
+
 [logger.formatters.ingestion_default]
-format = "%(asctime)s - %(name)-15s - %(filename)-20s [%(levelname)-8s]: %(message)s"
+format = "%(asctime)s - %(name)-15s - %(filename)-18s [%(levelname)-8s]: %(message)s"
 datefmt = "%Y-%m-%d %H:%M:%S"
 
 [logger.loggers.ingestion]
 handlers = ["ingestion_console"]
 level = "INFO"
+
+[logger.loggers.uvicorn]
+handlers = ["default"]
+level = "INFO"
+propagate = false
+
+[logger.loggers.uvicorn_access]
+handlers = ["access"]
+level = "INFO"
+propagate = false
+
+[logger.loggers.uvicorn_error]
+handlers = ["error"]
+level = "ERROR"
+propagate = false
+
+[datasource]
+[datasource.driver]
+package = "drivers.postgres_driver"
+class = "PostgresDriver"
+options = {}
+
+[datasource.database]
+drivername = "postgresql+psycopg2"
+name = "data_ontology"
+host = "localhost"
+port = 5432
+
+[datasource.database.options]
+user = "postgres.user"
+password = "postgres.password"
+echo = false
+
+[service]
+title = "Data Ingestion"
+root_path = "/ontology"
+port = 8080
+host = "127.0.0.1"
+credentials = true
+allow_origins = ["*"]
+methods = ["*"]
+headers = ["*"]
+docs_url = "/docs"
+redoc_url = ""
+reload = false
+scheme = "http"

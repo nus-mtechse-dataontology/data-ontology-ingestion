@@ -1,5 +1,5 @@
-from ingestion.file_ingestion.file_ingestion import FileIngestion
-from sessions.db_session import DBSession
+from data_feed.ingestion.file_ingestion.file_ingestion import FileIngestion
+from data_feed.sessions.db_session import DBSession
 from sqlmodel import Session
 from sqlalchemy import text
 
@@ -19,7 +19,7 @@ def test_file_ingestion(tmp_path, in_memory_engine):
             }
         },
         "datasource": {
-            "driver": {"package": "drivers.sqlite_driver", "class": "SQLiteDriver", "options": {}},
+            "driver": {"package": "data_feed.drivers.sqlite_driver", "class": "SQLiteDriver", "options": {}},
             "database": {"name": "db", "connection_url": "sqlite:///:memory:", "options": {"echo": False}},
             "table": {"name": "some_table"},
         },

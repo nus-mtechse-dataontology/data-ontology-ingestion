@@ -20,13 +20,17 @@ dataset:
 
 datasource:
   driver:
-    package: "drivers.sqlite_driver"
-    class: "SQLiteDriver"
+    package: "drivers.postgres_driver"
+    class: "PostgresDriver"
     options:
   database:
-    name: "database.db"
-    connection_url: "sqlite:///storage/database.db"
+    drivername: "postgresql+psycopg2"
+    name: "data_ontology"
+    host: "localhost"
+    port: 5432
     options:
+      user: "postgres.user"
+      password: "postgres.password"
       echo: false
   table:
     name: "dim_city"

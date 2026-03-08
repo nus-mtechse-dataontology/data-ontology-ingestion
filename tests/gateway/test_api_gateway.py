@@ -1,7 +1,7 @@
 import pytest
 from requests.models import PreparedRequest
 
-from gateway.api_gateway import ApiGateway
+from data_feed.gateway.api_gateway import ApiGateway
 
 
 class DummyResponse:

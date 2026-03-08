@@ -1,5 +1,5 @@
 import os
-from ingestion.api_ingestion.api_ingestion import ApiIngestion
+from data_feed.ingestion.api_ingestion.api_ingestion import ApiIngestion
 
 
 class DummyIngestion(ApiIngestion):
